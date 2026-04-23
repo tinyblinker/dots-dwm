@@ -1,0 +1,7 @@
+# shyweeds always says that less is more....And never make shit config like copy config without fucking minds
+# minial config examples
+BasedOnStyle: LLVM
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 100
+SortIncludes: true

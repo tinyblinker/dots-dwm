@@ -1,0 +1,36 @@
+# .clang-tidy - 最小 C++17 项目静态分析配置
+
+# Checks 控制启用什么检查规则
+# -*                      : 先禁用所有默认检查
+# clang-analyzer-*        : 启用 Clang 静态分析检查
+# bugprone-*              : 启用容易导致 bug 的模式检查
+# modernize-*             : 启用现代 C++（如 C++11/14/17）重构建议
+# performance-*           : 启用性能相关检查
+# readability-*           : 启用代码可读性相关检查
+Checks: >
+  -*,
+  clang-analyzer-*,
+  bugprone-*,
+  modernize-*,
+  performance-*,
+  readability-*
+
+# WarningsAsErrors 控制哪些警告被视为错误
+# 空字符串表示不把所有警告当作错误
+# 可调为 "*" 表示对所有启用的检查当作错误
+WarningsAsErrors: ""
+
+# HeaderFilterRegex 控制哪些文件被检查
+# '.*' 表示检查项目中的所有头和源文件
+HeaderFilterRegex: '.*'
+
+# FormatStyle 让 clang-tidy 在自动修复时使用 .clang-format 风格
+FormatStyle: file
+
+# CheckOptions 用于调整单个检查器的行为
+# 例如现代化检查 modernize-use-auto
+CheckOptions:
+  - key: modernize-use-auto.MinTypeNameLength
+    value: '5'
+  # 含义：仅当类型名长度 >=5 时，才建议使用 auto
+  # 这样避免太短类型（如 'int'）产生无意义提示

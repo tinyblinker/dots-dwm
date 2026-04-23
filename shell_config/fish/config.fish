@@ -1,0 +1,22 @@
+if status is-interactive
+# Commands to run in interactive sessions can go here
+  fish_vi_key_bindings
+  fish_add_path {$HOME}/.cargo/bin
+  fish_add_path {$HOME}/.nix-profile/bin
+  set -gx EDITOR nvim
+  
+  # for kitty
+  function newterm
+    kitty @ launch --type=os-window --cwd current
+  end
+
+  # for yazi
+  function y
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    command yazi $argv --cwd-file="$tmp"
+    if read -z cwd < "$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
+      builtin cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
+  end
+end

@@ -1,0 +1,38 @@
+# clangd 项目级配置（适用于 Linux C++17 开发）
+
+# 1) CompileFlags: 控制编译器解析参数（如标准、宏、include 路径）
+CompileFlags:
+  Add:
+    - -std=c++17               # 告诉 clangd 按 C++17 规范解析
+    - -Wall                    # 打开所有基础警告
+    - -Wextra                  # 启用更多额外警告
+    # 如果没有 compile_commands.json，可以手动添加 include 路径
+    # - -Iinclude
+    # - -Isrc
+
+# 2) Diagnostics: clangd 的诊断行为设置
+Diagnostics:
+  UnusedIncludes: Strict     # 开启未使用 include 的严格提示
+  MissingIncludes: Strict    # 检查丢失的包含文件
+
+  # 2a) clang-tidy 配置 —— 启用/禁用检查规则
+  ClangTidy:
+    Add:
+      - modernize-*           # 启用现代化建议（C++17 相关）
+      - performance-*         # 启用性能相关检查
+      - bugprone-*            # 易错模式检查
+      - readability-*         # 可读性检查
+    Remove:
+      - modernize-use-trailing-return-type
+      # 如果某些建议不喜欢，可以用 Remove 关闭
+
+    CheckOptions:
+      readability-identifier-naming.FunctionCase: CamelCase
+
+# 3) Completion: 代码补全行为设置
+Completion:
+  HeaderInsertion: IWYU     # 自动插入建议的头文件（Include What You Use）
+
+# 4) Index: 用远程索引提升大型仓库性能（可选）
+Index:
+  Background: Enable        # 背景索引更快跳转和补全
