@@ -22,11 +22,6 @@ if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
-# 接入 nix 补全
-if [ -f /nix/var/nix/profiles/default/share/bash-completion/completions/nix ]; then
-  . /nix/var/nix/profiles/default/share/bash-completion/completions/nix
-fi
-
 #for the yazi file manager
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
