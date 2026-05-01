@@ -7,7 +7,6 @@ return {
 			c = { "clang-format" },
 			cpp = { "clang-format" },
 			sh = { "shellharden" },
-			nix = { "nixfmt" },
 			python = { "black" },
 		},
 		format_on_save = {
