@@ -7,7 +7,7 @@ BAT_PATH="/sys/class/power_supply/BAT0"
 
 get_net() {
     # fallback:check if there is networks 
-    if ping -c 1 -W 1 1.1.1.1 >/dev/null; then
+    if ping -c 3 -W 1 1.1.1.1 >/dev/null; then
         printf " on"
     else
         printf " off"
@@ -31,6 +31,7 @@ get_battery() {
         Charging) ICON="[CHG]" ;;
         Discharging) ICON="[DIS]" ;;
         Full) ICON="[FUL]" ;;
+        'Not charging') ICON="[N_C]" ;;
         *) ICON="?" ;;
     esac
 
