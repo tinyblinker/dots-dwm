@@ -1,3 +1,6 @@
+# rustup set mirrors
+set -x RUSTUP_UPDATE_ROOT https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+set -x RUSTUP_DIST_SERVER https://mirrors.tuna.tsinghua.edu.cn/rustup
 if status is-interactive
   # startx in tty1,login
   if status --is-login
@@ -7,7 +10,8 @@ if status is-interactive
       end
     end
   end
-# Commands to run in interactive sessions can go here
+
+  # Commands to run in interactive sessions can go here
   fish_vi_key_bindings
   fish_add_path $HOME/.cargo/bin
   set -gx EDITOR nvim
