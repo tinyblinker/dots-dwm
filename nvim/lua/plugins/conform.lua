@@ -4,9 +4,10 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- there are fucking mass in code in dwm
-			c = { "clang-format" },
-			cpp = { "clang-format" },
+			--			c = { "clang-format" },
+			--      cpp = { "clang-format" },
 			sh = { "shellharden" },
+			rust = { "rustfmt" },
 			python = { "black" },
 		},
 		format_on_save = {

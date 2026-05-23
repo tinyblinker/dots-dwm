@@ -4,6 +4,7 @@ return {
 		config = function()
 			local filetypes = {
 				"bash",
+				"rust",
 				"nix",
 				"c",
 				"rust",

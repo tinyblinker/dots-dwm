@@ -9,7 +9,7 @@ return { -- Linting
 		lint.linters_by_ft = {
 			sh = { "shellcheck" },
 			python = { "ruff" },
-			nix = { "statix" },
+			rust = { "clippy" },
 		}
 
 		-- To allow other plugins to add linters to require('lint').linters_by_ft,
