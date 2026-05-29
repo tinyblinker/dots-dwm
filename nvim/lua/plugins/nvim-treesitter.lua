@@ -12,6 +12,7 @@ return {
 				"diff",
 				"html",
 				"lua",
+				"asm",
 				"luadoc",
 				"markdown",
 				"markdown_inline",
