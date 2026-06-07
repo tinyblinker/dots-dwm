@@ -16,7 +16,7 @@
       paths = with pkgs; [
         cmake
         shellcheck
-        qemu-system-riscv
+        qemu
       ];
     };
   };
