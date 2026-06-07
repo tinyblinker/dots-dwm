@@ -17,6 +17,7 @@
         cmake
         shellcheck
         qemu
+        cava
       ];
     };
   };
