@@ -1,0 +1,2 @@
+# If true, periodically fetch from remote
+autoFetch: false
