@@ -15,6 +15,7 @@
 
       paths = with pkgs; [
         cmake
+        shellcheck
       ];
     };
   };
