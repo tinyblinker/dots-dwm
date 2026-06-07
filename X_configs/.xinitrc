@@ -15,8 +15,8 @@ xrandr --output eDP --mode 2560x1600
 pgrep -x fcitx5 > /dev/null || fcitx5 &
 pgrep -x picom > /dev/null || picom &
 pgrep -x dunst > /dev/null || dunst &
-feh --no-fehbg --bg-fill '/home/shyweeds/dwm_build/dwm-6.8/wallpaper/1.png' 
+feh --no-fehbg --bg-fill '/home/shyweeds/dwm/wallpaper/1.png' 
 # my_status_bar in a shell
-/home/shyweeds/dwm_build/dwm_status.sh &
+/home/shyweeds/dotfiles-dwm/scripts/dwm_status.sh &
 
 exec dwm
