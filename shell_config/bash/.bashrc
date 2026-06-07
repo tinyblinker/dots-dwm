@@ -11,6 +11,8 @@ PS1='[\u@\h \W]\$ '
 
 set -o vi
 export EDITOR="nvim"
+export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
  
 # Quickly open an terminal in $PWD
 newterm() {
