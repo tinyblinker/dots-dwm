@@ -15,7 +15,6 @@
 
       paths = with pkgs; [
         cmake
-        nodejs
       ];
     };
   };
