@@ -20,6 +20,7 @@
       paths = with pkgs; [
         cmake
         shellharden
+        ruff
         shellcheck
         vscode
         qemu
