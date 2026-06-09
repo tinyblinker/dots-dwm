@@ -21,6 +21,7 @@
         cmake
         shellharden
         shellcheck
+        vscode
         qemu
         cava
       ];
