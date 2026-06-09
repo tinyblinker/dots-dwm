@@ -15,7 +15,6 @@
 
       paths = with pkgs; [
         cmake
-        vscode
         shellharden
         shellcheck
         qemu
