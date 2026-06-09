@@ -11,7 +11,7 @@
 
       config = {
         allowUnfree = true;
-      }
+      };
     };
   in {
     packages.${system}.default = pkgs.buildEnv {
