@@ -19,6 +19,7 @@
 
       paths = with pkgs; [
         cmake
+        claude-code
         shellharden
         shellcheck
         vscode
