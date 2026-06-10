@@ -9,9 +9,6 @@
     pkgs = import nixpkgs {
       inherit system;
 
-      config = {
-        allowUnfree = true;
-      };
     };
   in {
     packages.${system}.default = pkgs.buildEnv {
@@ -22,7 +19,6 @@
         shellharden
         ruff
         shellcheck
-        vscode
         qemu
         cava
       ];
