@@ -31,3 +31,6 @@ if status is-interactive
     rm -f -- "$tmp"
   end
 end
+
+# Added by Comate (zulu-cli)
+fish_add_path /home/shyweeds/.comate/zulu-cli/bin
