@@ -5,9 +5,9 @@ return {
 	},
 	opts = {
 		options = {
-			theme = "auto",
-			component_separators = "",
-			section_separators = "",
+			theme = "tokyonight",
+			component_separators = "|",
+			section_separators = "|",
 			globalstatus = true,
 		},
 
@@ -18,7 +18,7 @@ return {
 
 			lualine_x = { "diagnostics" },
 			lualine_y = { "filetype" },
-			lualine_z = { "location" },
+			lualine_z = { "location", "progress" },
 		},
 	},
 }
