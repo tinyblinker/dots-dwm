@@ -1,11 +1,12 @@
 # 声明显示会话
 export DISPLAY=:0
 export XAUTHORITY=$HOME/.Xauthority
-export XDG_CURRENT_DESKTOP=GTK
-export XDG_SESSION_DESKTOP=GTK
+export XDG_CURRENT_DESKTOP=dwm
+export XDG_SESSION_DESKTOP=dwm
+export XDG_SESSION_TYPE=x11
 
 # 把显示相关变量存入 systemd 用户环境
-systemctl --user import-environment DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP
+systemctl --user import-environment DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE
 dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP
 
 xrdb -merge ~/.Xresources
