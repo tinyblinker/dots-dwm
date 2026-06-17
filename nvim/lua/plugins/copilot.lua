@@ -4,18 +4,22 @@ return {
 	event = "InsertEnter",
 	config = function()
 		require("copilot").setup({
-			suggestion = {
+			panel = { enabled = false },
+			suggestions = {
 				enabled = true,
 				auto_trigger = true,
+				trigger_on_accept = true,
+
+				-- NOTE: I just copy the default keymap here(To show them for you)
 				keymap = {
-					accept = "<C-a>",
-					next = "<C-down>",
-					prev = "<C-up>",
-					dismiss = "<C-S-a>", -- ctrl + shift + a ==> dismiss
+					accept = "<M-l>",
+					accept_word = false,
+					accept_line = false,
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
+					toggle_auto_trigger = false,
 				},
-			},
-			panel = {
-				enabled = false,
 			},
 		})
 	end,

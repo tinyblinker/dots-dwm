@@ -32,7 +32,21 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		keymap = { preset = "default" },
+		-- NOTE:关键点:设定keymap为default映射
+		keymap = {
+			-- 'default' (recommended) for mappings similar to built-in completions
+			--   <c-y> to accept ([y]es) the completion.
+			-- 'super-tab' for tab to accept
+			-- 'enter' for enter to accept
+			-- 'none' for no mappings
+			-- All presets have the following mappings:
+			-- <tab>/<s-tab>: move to right/left of your snippet expansion
+			-- <c-space>: Open menu or open docs if already open
+			-- <c-n>/<c-p> or <up>/<down>: Select next/previous item
+			-- <c-e>: Hide menu
+			-- <c-k>: Toggle signature help
+			preset = "default",
+		},
 		appearance = {
 			nerd_font_variant = "mono",
 		},
@@ -52,19 +66,5 @@ return {
 	},
 	config = function(_, opts)
 		require("blink.cmp").setup(opts)
-		-- 与blink.cmp冲突，暂时隐藏copilot的建议
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "BlinkCmpMenuOpen",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = true
-			end,
-		})
-		-- 打开copilot建议
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "BlinkCmpMenuClose",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = false
-			end,
-		})
 	end,
 }
