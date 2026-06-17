@@ -1,24 +1,18 @@
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
+	"stevearc/conform.nvim",
 	opts = {
-		options = {
-			theme = "auto",
-			component_separators = "",
-			section_separators = "",
-			globalstatus = true,
+		formatters_by_ft = {
+			lua = { "stylua" },
+			-- there are fucking mass in code in dwm
+			--			c = { "clang-format" },
+			--      cpp = { "clang-format" },
+			sh = { "shellharden" },
+			rust = { "rustfmt" },
+			python = { "black" },
 		},
-
-		sections = {
-			lualine_a = { "mode" },
-			lualine_b = { "branch", "diff" },
-			lualine_c = { { "filename", path = 1 } },
-
-			lualine_x = { "diagnostics" },
-			lualine_y = { "filetype" },
-			lualine_z = { "location" },
+		format_on_save = {
+			lsp_format = "never",
+			timeout_ms = 4000,
 		},
 	},
 }
