@@ -10,6 +10,11 @@ return {
 	config = function()
 		local builtin = require("telescope.builtin")
 
+		-- pcall是lua的安全调用函数(Protected Call).即使没有安装telescope-fzf-native.nvim,也会忽略报错
+		--
+		-- 尝试加载fzf扩展用于telescope搜索引擎加速
+		pcall(require("telescope").load_extension, "fzf")
+
 		-- 设置当前缓冲区模糊搜索快捷键
 		vim.keymap.set("n", "<leader>/", function()
 			builtin.current_buffer_fuzzy_find()
@@ -78,5 +83,20 @@ return {
 				)
 			end,
 		})
+
+		-- 快捷键：<leader>s/
+		-- 效果：限制只在“当前已经打开的所有文件（Open Files）”里进行 Grep 文本搜索，而不是整个项目。
+		vim.keymap.set("n", "<leader>s/", function()
+			builtin.live_grep({
+				grep_open_files = true,
+				prompt_title = "Live Grep in Open Files",
+			})
+		end, { desc = "[S]earch [/] in Open Files" })
+
+		-- 快捷键：<leader>sn
+		-- 效果：快速搜索和打开 Neovim 自身的配置文件。stdpath("config") 会自动指向你的 ~/.config/nvim 目录。
+		vim.keymap.set("n", "<leader>sn", function()
+			builtin.find_files({ cwd = vim.fn.stdpath("config") })
+		end, { desc = "[S]earch [N]eovim files" })
 	end,
 }
