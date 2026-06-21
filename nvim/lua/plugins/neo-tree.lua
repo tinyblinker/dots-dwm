@@ -24,21 +24,20 @@ return {
 				hide_gitignored = false,
 			},
 		},
+
 		default_component_configs = {
 			git_status = {
 				symbols = {
-					-- 变更类型 (使用更简洁的符号)
-					added = "", -- 原来是 ✚，换成纤细的加号
-					modified = "", -- 原来是 ，换成更具变化的修改符号
-					deleted = "", -- 原来是 ✖，换成圆润的删除符号
-					renamed = "", -- 原来是 󰁕，换成更具流线感的重命名符号
+					added = "+ ",
+					modified = "~ ",
+					deleted = "- ",
+					renamed = "> ",
 
-					-- 状态类型 (增强辨识度)
-					untracked = "󰞋", -- 换成更现代的疑问标记
-					ignored = "󰆚", -- 换成更简约的忽略图标
-					unstaged = " 󰄱 ", -- 保留该符号，它比较平衡
-					staged = "󰗡", -- 换成更精致的勾选符号
-					conflict = "", -- 保持不变，这是 Git 冲突的经典符号
+					untracked = "? ",
+					ignored = "· ",
+					unstaged = "○ ",
+					staged = "✓ ",
+					conflict = "! ",
 				},
 			},
 		},
