@@ -20,4 +20,4 @@ feh --no-fehbg --bg-fill '/home/shyweeds/dwm/wallpaper/1.png'
 # my_status_bar in a shell
 /home/shyweeds/dotfiles-dwm/scripts/dwm_status.sh &
 
-exec dwm
+exec dbus-run-session -- dwm
