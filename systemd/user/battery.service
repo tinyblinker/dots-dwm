@@ -1,0 +1,6 @@
+[Unit]
+Description=Battery Monitor
+
+[Service]
+Type=oneshot
+ExecStart=/home/shyweeds/.local/bin/battery_checker.sh
