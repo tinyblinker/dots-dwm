@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-BAT=$(cat /sys/class/power_supply/BAT0/capacity)
-STATUS=$(cat /sys/class/power_supply/BAT0/status)
+BAT_DEV="/sys/class/power_supply/BAT0"
+BAT=$(< "$BAT_DEV/capacity")
+STATUS=$(< "$BAT_DEV/status")
 
 [ "$STATUS" != "Discharging" ] && exit 0
 
