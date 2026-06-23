@@ -6,7 +6,7 @@ STATUS=$(< "$BAT_DEV/status")
 [ "$STATUS" != "Discharging" ] && exit 0
 
 if [ "$BAT" -le 20 ]; then
-    dunstify -u normal "🔋 电量偏低" "当前电量：${BAT}%"
+    dunstify -u critical "🔋 电量偏低" "当前电量：${BAT}%"
 fi
 
 # 适当时候删除/tmp/battery-hibernating
