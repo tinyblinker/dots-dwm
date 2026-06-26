@@ -14,6 +14,7 @@
         name = "shyweedsTools";
         paths = with pkgs; [
           shellharden
+          deadnix
           ruff
           nixfmt
           nixd

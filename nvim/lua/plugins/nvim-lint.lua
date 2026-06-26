@@ -9,6 +9,7 @@ return {
 			sh = { "shellcheck" },
 			python = { "ruff" },
 			rust = { "clippy" },
+			nix = { "deadnix" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
