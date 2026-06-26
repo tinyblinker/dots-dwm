@@ -17,6 +17,7 @@
       paths = with pkgs; [
         shellharden
         ruff
+        pyright
         shellcheck
         qemu
         cava
