@@ -8,6 +8,7 @@ return {
 			--      cpp = { "clang-format" },
 			sh = { "shellharden" },
 			rust = { "rustfmt" },
+			nix = { "nixfmt" },
 			python = { "black" },
 		},
 		format_on_save = {

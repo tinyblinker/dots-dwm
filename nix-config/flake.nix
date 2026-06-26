@@ -17,6 +17,8 @@
       paths = with pkgs; [
         shellharden
         ruff
+        nixfmt
+        nixd
         black
         stylua
         pyright

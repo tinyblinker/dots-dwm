@@ -64,6 +64,7 @@ return {
 			},
 			pyright = {},
 			rust_analyzer = {},
+			nixd = {},
 		}
 		for name, server in pairs(servers) do
 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
