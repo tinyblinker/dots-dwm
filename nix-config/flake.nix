@@ -17,6 +17,8 @@
       paths = with pkgs; [
         shellharden
         ruff
+        black
+        stylua
         pyright
         shellcheck
         qemu
