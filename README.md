@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="#-screenshots">Screenshots</a> ·
   <a href="#-structure">Structure</a> ·
   <a href="#-quick-start">Quick Start</a> ·
   <a href="#-dependencies">Deps</a> ·
@@ -24,6 +25,16 @@
 
 > A **dwm + Arch Linux** dotfiles suite tailored for C/C++ development.
 > Minimal window manager, fully-loaded Neovim, polished terminal experience.
+
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="show_screenshots/1.png" width="80%" alt="desktop screenshot 1" />
+  <br>
+  <img src="show_screenshots/2.png" width="80%" alt="desktop screenshot 2" />
+</p>
 
 ---
 
@@ -203,15 +214,6 @@ yay -S nerd-fonts-jetbrains-mono
 - **Nix flake** — reproducible dev environment (shellharden, ruff, nixfmt, nixd, stylua, …)
 - **VSCode** — format-on-save, neovim extension, custom suggestion keybindings
 - **C++ template** — CMake 4.2 + clangd + clang-tidy + clang-format boilerplate
-
----
-
-## 📸 Screenshots
-
-<!-- TODO: add screenshots -->
-<p align="center">
-  <em>Coming soon...</em>
-</p>
 
 ---
 
