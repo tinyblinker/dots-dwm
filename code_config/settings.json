@@ -3,11 +3,24 @@
     "chat.titleBar.signIn.enabled": false,
     "workbench.browser.showInTitleBar": true,
     "chat.titleBar.openInAgentsWindow.enabled": false,
-    "chat.unifiedAgentsBar.enabled": true,
-    "extensions.ignoreRecommendations": true,
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
-    },
     "editor.inlineSuggest.enabled": false,
-    "editor.formatOnSave": true
+    // eslint configs
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
+    // Taikwind configs
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
 }
