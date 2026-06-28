@@ -1,7 +1,7 @@
 {
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "chat.titleBar.signIn.enabled": false,
-    "workbench.browser.showInTitleBar": false,
+    "workbench.browser.showInTitleBar": true,
     "chat.titleBar.openInAgentsWindow.enabled": false,
     "chat.unifiedAgentsBar.enabled": true,
     "extensions.ignoreRecommendations": true,
