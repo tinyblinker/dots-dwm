@@ -72,7 +72,7 @@ dotfiles-dwm/
 ├── gdb/                          GDB 调试配置（项目专用）
 ├── vim_config_bak/               旧版 Vim 配置（已被 Neovim 取代）
 ├── my_code_template/cmake/       C++17 CMake 项目模板（clang-tidy、clangd、clang-format）
-└── nix-config/                   Nix flake（可复现开发工具：shellharden、ruff、nixd …）
+└── nix-config/                   Nix flake（shellharden、deadnix、ruff、nixfmt、nixd、black、stylua、pyright、shellcheck、qemu、cava）
 ```
 
 ---
@@ -139,7 +139,7 @@ systemctl --user enable --now battery.timer
 | [dunst](https://dunst-project.org) | 通知守护进程 |
 | [kitty](https://sw.kovidgoyal.net/kitty/) | GPU 加速终端 |
 | [fish](https://fishshell.com) / bash | Shell |
-| [neovim](https://neovim.io) `>= 0.10` | 编辑器 |
+| [neovim](https://neovim.io) `>= 0.11` | 编辑器 |
 | [fcitx5](https://fcitx-im.org) | 输入法框架 |
 | [feh](https://feh.finalrewind.org) | 壁纸设置 |
 | [lazygit](https://github.com/jesseduffield/lazygit) | 终端 Git 客户端 |
@@ -198,7 +198,7 @@ yay -S nerd-fonts-jetbrains-mono
 
 - `<Space>` Leader 键，`which-key` 实时提示
 - LSP 开箱支持：`clangd`、`pyright`、`rust-analyzer`、`lua_ls`、`nixd`
-- 保存时自动格式化，异步代码检查
+- 保存时自动格式化（C/C++ 除外 — dwm 源码需手动调整），异步代码检查
 - Telescope 模糊查找，Flash 快速跳转
 - Tokyonight 配色主题
 
@@ -211,9 +211,9 @@ yay -S nerd-fonts-jetbrains-mono
 
 ### 其他
 
-- **Nix flake** — 可复现开发环境（shellharden、ruff、nixfmt、nixd、stylua …）
+- **Nix flake** — 可复现开发环境（11 个工具：shellharden、deadnix、ruff、nixfmt、nixd …）
 - **VSCode** — 保存时格式化、neovim 扩展、自定义建议快捷键
-- **C++ 模板** — CMake 4.2 + clangd + clang-tidy + clang-format 项目模板
+- **C++ 模板** — CMake 4.2.3 + clangd + clang-tidy + clang-format 项目模板
 
 ---
 

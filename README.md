@@ -72,7 +72,7 @@ dotfiles-dwm/
 ├── gdb/                          GDB config (project-specific)
 ├── vim_config_bak/               Legacy Vim config (superseded by Neovim)
 ├── my_code_template/cmake/       C++17 CMake template (clang-tidy, clangd, clang-format)
-└── nix-config/                   Nix flake (reproducible dev tools: shellharden, ruff, nixd, …)
+└── nix-config/                   Nix flake (shellharden, deadnix, ruff, nixfmt, nixd, black, stylua, pyright, shellcheck, qemu, cava)
 ```
 
 ---
@@ -139,7 +139,7 @@ systemctl --user enable --now battery.timer
 | [dunst](https://dunst-project.org) | Notification daemon |
 | [kitty](https://sw.kovidgoyal.net/kitty/) | GPU-accelerated terminal |
 | [fish](https://fishshell.com) / bash | Shell |
-| [neovim](https://neovim.io) `>= 0.10` | Editor |
+| [neovim](https://neovim.io) `>= 0.11` | Editor |
 | [fcitx5](https://fcitx-im.org) | Input method framework |
 | [feh](https://feh.finalrewind.org) | Wallpaper setter |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Terminal Git UI |
@@ -198,7 +198,7 @@ yay -S nerd-fonts-jetbrains-mono
 
 - `<Space>` leader with `which-key` hints
 - LSP ready: `clangd`, `pyright`, `rust-analyzer`, `lua_ls`, `nixd`
-- Auto-format on save, async linting
+- Auto-format on save (excl. C/C++ — hand tuned dwm source), async linting
 - Telescope fuzzy finder, Flash fast jump
 - Tokyonight colorscheme
 
@@ -211,9 +211,9 @@ yay -S nerd-fonts-jetbrains-mono
 
 ### Extras
 
-- **Nix flake** — reproducible dev environment (shellharden, ruff, nixfmt, nixd, stylua, …)
+- **Nix flake** — reproducible dev environment (11 tools: shellharden, deadnix, ruff, nixfmt, nixd, …)
 - **VSCode** — format-on-save, neovim extension, custom suggestion keybindings
-- **C++ template** — CMake 4.2 + clangd + clang-tidy + clang-format boilerplate
+- **C++ template** — CMake 4.2.3 + clangd + clang-tidy + clang-format boilerplate
 
 ---
 
