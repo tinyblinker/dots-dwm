@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="#-截图">截图</a> ·
   <a href="#-目录结构">结构</a> ·
   <a href="#-快速开始">快速开始</a> ·
   <a href="#-依赖">依赖</a> ·
@@ -27,15 +28,25 @@
 
 ---
 
+## 📸 截图
+
+<p align="center">
+  <img src="show_screenshots/1.png" width="80%" alt="桌面截图 1" />
+  <br>
+  <img src="show_screenshots/2.png" width="80%" alt="桌面截图 2" />
+</p>
+
+---
+
 ## 📁 目录结构
 
 ```
 dotfiles-dwm/
-├── deploy.sh                     一键部署脚本
-├── nvim/                         Neovim 编辑器（Lazy.nvim，16 个插件）
+├── nvim/                         Neovim 编辑器（Lazy.nvim，15 个插件）
 │   ├── init.lua
+│   ├── lazy-lock.json            锁定插件版本
 │   └── lua/
-│       ├── config/               选项、键位、自动命令
+│       ├── config/               选项、键位、自动命令、lazy 引导
 │       └── plugins/              每个插件独立配置文件
 ├── kitty/                        GPU 加速终端模拟器
 ├── picom/                        合成器（GLX、模糊、阴影、淡入淡出）
@@ -44,17 +55,24 @@ dotfiles-dwm/
 ├── yazi/                         终端文件管理器
 ├── shell_config/
 │   ├── bash/.bashrc              Bash 配置（vi 模式、Rust 镜像、别名）
-│   └── fish/                     Fish 配置（vi 键位、tty1 自动 startx）
+│   └── fish/                     Fish 配置 + 变量（vi 键位、tty1 自动 startx）
 ├── X_configs/
 │   ├── .xinitrc                  X11 会话（启动 dwm、picom、dunst、fcitx5、feh）
 │   └── .Xresources               X 资源（DPI 192，JetBrains Mono 17px）
 ├── scripts/
 │   ├── dwm_status.sh             DWM 状态栏（网络 / 电池 / 音量 / 电源 / 时间）
+│   ├── battery_checker.sh        低电量通知 + 自动休眠
 │   └── wifi_fucking_rescan.sh
+├── systemd/user/                 Systemd 用户单元
+│   ├── battery.timer             定时电池检查（每 60 秒）
+│   └── battery.service           Oneshot 电池监控服务
+├── code_config/                  VSCode / VSCodium 配置
+│   ├── settings.json             保存时格式化、neovim 扩展
+│   └── keybindings.json          自定义建议快捷键
 ├── gdb/                          GDB 调试配置（项目专用）
 ├── vim_config_bak/               旧版 Vim 配置（已被 Neovim 取代）
 ├── my_code_template/cmake/       C++17 CMake 项目模板（clang-tidy、clangd、clang-format）
-└── nix-config/                   Nix flake（可复现开发环境）
+└── nix-config/                   Nix flake（可复现开发工具：shellharden、ruff、nixd …）
 ```
 
 ---
@@ -64,19 +82,49 @@ dotfiles-dwm/
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/shyweeds/dots-dwm.git ~/dotfiles-dwm
-
-# 2. 预览将要执行的操作
-cd ~/dotfiles-dwm
-./deploy.sh -n
-
-# 3. 正式部署
-./deploy.sh
 ```
 
-部署脚本通过软链接将仓库中的配置文件映射到 `~/.config/` 和 `$HOME` 下。
+### 手动部署
 
-> **幂等** — 已链接的配置自动跳过，可反复执行。
-> <br>**安全** — 目标路径已有文件时跳过不覆盖，需手动处理冲突。
+通过软链接将仓库中的配置文件映射到用户目录：
+
+```bash
+# 配置目录 → ~/.config/
+ln -sfn ~/dotfiles-dwm/nvim        ~/.config/nvim
+ln -sfn ~/dotfiles-dwm/kitty       ~/.config/kitty
+ln -sfn ~/dotfiles-dwm/picom       ~/.config/picom
+ln -sfn ~/dotfiles-dwm/dunst       ~/.config/dunst
+ln -sfn ~/dotfiles-dwm/lazygit     ~/.config/lazygit
+ln -sfn ~/dotfiles-dwm/yazi        ~/.config/yazi
+
+# Shell 配置
+ln -sf ~/dotfiles-dwm/shell_config/bash/.bashrc  ~/.bashrc
+ln -sfn ~/dotfiles-dwm/shell_config/fish         ~/.config/fish
+
+# X11 配置
+ln -sf ~/dotfiles-dwm/X_configs/.xinitrc     ~/.xinitrc
+ln -sf ~/dotfiles-dwm/X_configs/.Xresources  ~/.Xresources
+
+# 脚本
+mkdir -p ~/.local/bin
+ln -sf ~/dotfiles-dwm/scripts/dwm_status.sh        ~/.local/bin/dwm_status.sh
+ln -sf ~/dotfiles-dwm/scripts/battery_checker.sh   ~/.local/bin/battery_checker.sh
+ln -sf ~/dotfiles-dwm/scripts/wifi_fucking_rescan.sh ~/.local/bin/wifi_fucking_rescan.sh
+
+# Systemd 用户单元（电池监控）
+mkdir -p ~/.config/systemd/user
+ln -sf ~/dotfiles-dwm/systemd/user/battery.timer   ~/.config/systemd/user/battery.timer
+ln -sf ~/dotfiles-dwm/systemd/user/battery.service ~/.config/systemd/user/battery.service
+systemctl --user daemon-reload
+systemctl --user enable --now battery.timer
+
+# 可选
+# ln -sf ~/dotfiles-dwm/gdb/gdbinit_bak ~/.gdbinit
+# ln -sf ~/dotfiles-dwm/vim_config_bak/.vimrc ~/.vimrc
+```
+
+> **安全** — `ln -sf` 可覆盖已有软链接；如有真实文件请先备份。
+> <br>**幂等** — 可反复执行；软链接会被直接覆盖。
 
 ---
 
@@ -115,7 +163,9 @@ cd ~/dotfiles-dwm
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | 键位提示 |
 | [flash.nvim](https://github.com/folke/flash.nvim) | 快速跳转 |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | 配色主题 |
-| [copilot.lua](https://github.com/zbirenbaum/copilot.lua) | GitHub Copilot |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | 自动配对括号 |
+| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | 缩进引导线 |
+| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) | 高亮 TODO/FIXME |
 
 ### 字体
 
@@ -140,13 +190,14 @@ yay -S nerd-fonts-jetbrains-mono
 
 - **Picom 合成器** — 双 Kawase 模糊、窗口阴影、透明度渐变、GLX 后端
 - **状态栏** — 实时显示网络状态、电池电量、音量、电源模式、时间
+- **电池监控** — systemd 定时器每 60 秒检查一次，≤20% 通知，≤10% 自动休眠
 - **自动启动** — `.xinitrc` 一键拉起 fcitx5、picom、dunst、壁纸、状态栏
 - **Rust 镜像** — Shell 中已配置清华大学 TUNA 镜像源
 
 ### Neovim 编辑器
 
 - `<Space>` Leader 键，`which-key` 实时提示
-- LSP 开箱支持：`clangd`、`pyright`、`rust-analyzer`、`lua_ls`
+- LSP 开箱支持：`clangd`、`pyright`、`rust-analyzer`、`lua_ls`、`nixd`
 - 保存时自动格式化，异步代码检查
 - Telescope 模糊查找，Flash 快速跳转
 - Tokyonight 配色主题
@@ -158,14 +209,11 @@ yay -S nerd-fonts-jetbrains-mono
 - **Yazi** — 显示隐藏文件，<kbd>y</kbd> 命令自动跳转目录
 - **LazyGit** — 禁用自动 fetch
 
----
+### 其他
 
-## 📸 截图
-
-<!-- TODO: 添加截图 -->
-<p align="center">
-  <em>即将到来...</em>
-</p>
+- **Nix flake** — 可复现开发环境（shellharden、ruff、nixfmt、nixd、stylua …）
+- **VSCode** — 保存时格式化、neovim 扩展、自定义建议快捷键
+- **C++ 模板** — CMake 4.2 + clangd + clang-tidy + clang-format 项目模板
 
 ---
 
