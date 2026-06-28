@@ -1,25 +1,29 @@
 {
-    "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "chat.titleBar.signIn.enabled": false,
-    "workbench.browser.showInTitleBar": true,
-    "chat.titleBar.openInAgentsWindow.enabled": false,
-    // eslint configs
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "always"
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ],
-    "js/ts.tsdk.path": "node_modules/typescript/lib",
-    // Taikwind configs
-    "editor.quickSuggestions": {
-        "strings": "on"
-    },
-    "files.associations": {
-        "*.css": "tailwindcss"
-    }
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "chat.titleBar.signIn.enabled": false,
+  "workbench.browser.showInTitleBar": true,
+  "chat.titleBar.openInAgentsWindow.enabled": false,
+  // eslint configs
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  // Taikwind configs
+  "editor.quickSuggestions": {
+    "strings": "on",
+  },
+  "files.associations": {
+    "*.css": "tailwindcss",
+  },
+  // Prettier configs
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Vim configs
+  "vim.useSystemClipboard": true,
 }
