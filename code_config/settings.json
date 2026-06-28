@@ -3,7 +3,6 @@
     "chat.titleBar.signIn.enabled": false,
     "workbench.browser.showInTitleBar": true,
     "chat.titleBar.openInAgentsWindow.enabled": false,
-    "editor.inlineSuggest.enabled": false,
     // eslint configs
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
