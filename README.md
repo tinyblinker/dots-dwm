@@ -31,11 +31,11 @@
 
 ```
 dotfiles-dwm/
-├── deploy.sh                     One-click deploy script
-├── nvim/                         Neovim (Lazy.nvim, 16 plugins)
+├── nvim/                         Neovim (Lazy.nvim, 15 plugins)
 │   ├── init.lua
+│   ├── lazy-lock.json            Locked plugin versions
 │   └── lua/
-│       ├── config/               Options, keymaps, autocmds
+│       ├── config/               Options, keymaps, autocmds, lazy bootstrap
 │       └── plugins/              One file per plugin
 ├── kitty/                        GPU-accelerated terminal
 ├── picom/                        Compositor (GLX, blur, shadows, fading)
@@ -44,17 +44,24 @@ dotfiles-dwm/
 ├── yazi/                         Terminal file manager
 ├── shell_config/
 │   ├── bash/.bashrc              Bash (vi mode, Rust mirror, aliases)
-│   └── fish/                     Fish (vi bindings, auto startx on tty1)
+│   └── fish/                     Fish config + variables (vi bindings, auto startx on tty1)
 ├── X_configs/
 │   ├── .xinitrc                  X11 session (launches dwm, picom, dunst, fcitx5, feh)
 │   └── .Xresources               X resources (DPI 192, JetBrains Mono 17px)
 ├── scripts/
 │   ├── dwm_status.sh             DWM status bar (network / battery / volume / power / time)
+│   ├── battery_checker.sh        Low-battery notification + auto-hibernate
 │   └── wifi_fucking_rescan.sh
+├── systemd/user/                 Systemd user units
+│   ├── battery.timer             Periodic battery check (every 60s)
+│   └── battery.service           Oneshot battery monitor service
+├── code_config/                  VSCode / VSCodium config
+│   ├── settings.json             Format-on-save, neovim extension
+│   └── keybindings.json          Custom suggestion keybindings
 ├── gdb/                          GDB config (project-specific)
 ├── vim_config_bak/               Legacy Vim config (superseded by Neovim)
 ├── my_code_template/cmake/       C++17 CMake template (clang-tidy, clangd, clang-format)
-└── nix-config/                   Nix flake (reproducible dev environment)
+└── nix-config/                   Nix flake (reproducible dev tools: shellharden, ruff, nixd, …)
 ```
 
 ---
@@ -64,19 +71,49 @@ dotfiles-dwm/
 ```bash
 # 1. Clone
 git clone https://github.com/shyweeds/dots-dwm.git ~/dotfiles-dwm
-
-# 2. Dry-run — preview what will happen
-cd ~/dotfiles-dwm
-./deploy.sh -n
-
-# 3. Deploy
-./deploy.sh
 ```
 
-The deploy script symlinks config files from the repo into `~/.config/` and `$HOME`.
+### Manual Deployment
 
-> **Idempotent** — already-linked configs are skipped; safe to re-run.
-> <br>**Safe** — existing files are left untouched; resolve conflicts manually.
+Symlink config files from the repo into your home directory:
+
+```bash
+# Configs → ~/.config/
+ln -sfn ~/dotfiles-dwm/nvim        ~/.config/nvim
+ln -sfn ~/dotfiles-dwm/kitty       ~/.config/kitty
+ln -sfn ~/dotfiles-dwm/picom       ~/.config/picom
+ln -sfn ~/dotfiles-dwm/dunst       ~/.config/dunst
+ln -sfn ~/dotfiles-dwm/lazygit     ~/.config/lazygit
+ln -sfn ~/dotfiles-dwm/yazi        ~/.config/yazi
+
+# Shell configs
+ln -sf ~/dotfiles-dwm/shell_config/bash/.bashrc  ~/.bashrc
+ln -sfn ~/dotfiles-dwm/shell_config/fish         ~/.config/fish
+
+# X11 configs
+ln -sf ~/dotfiles-dwm/X_configs/.xinitrc     ~/.xinitrc
+ln -sf ~/dotfiles-dwm/X_configs/.Xresources  ~/.Xresources
+
+# Scripts
+mkdir -p ~/.local/bin
+ln -sf ~/dotfiles-dwm/scripts/dwm_status.sh        ~/.local/bin/dwm_status.sh
+ln -sf ~/dotfiles-dwm/scripts/battery_checker.sh   ~/.local/bin/battery_checker.sh
+ln -sf ~/dotfiles-dwm/scripts/wifi_fucking_rescan.sh ~/.local/bin/wifi_fucking_rescan.sh
+
+# Systemd user units (battery monitoring)
+mkdir -p ~/.config/systemd/user
+ln -sf ~/dotfiles-dwm/systemd/user/battery.timer   ~/.config/systemd/user/battery.timer
+ln -sf ~/dotfiles-dwm/systemd/user/battery.service ~/.config/systemd/user/battery.service
+systemctl --user daemon-reload
+systemctl --user enable --now battery.timer
+
+# Optional
+# ln -sf ~/dotfiles-dwm/gdb/gdbinit_bak ~/.gdbinit
+# ln -sf ~/dotfiles-dwm/vim_config_bak/.vimrc ~/.vimrc
+```
+
+> **Safe** — use `ln -sf` to overwrite existing symlinks; back up real files first.
+> <br>**Idempotent** — safe to re-run; symlinks are just overwritten.
 
 ---
 
@@ -115,7 +152,9 @@ The deploy script symlinks config files from the repo into `~/.config/` and `$HO
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | Keybinding helper |
 | [flash.nvim](https://github.com/folke/flash.nvim) | Fast navigation |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) | Colorscheme |
-| [copilot.lua](https://github.com/zbirenbaum/copilot.lua) | GitHub Copilot |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-pair brackets |
+| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indent guides |
+| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) | Highlight TODO/FIXME |
 
 ### Font
 
@@ -140,13 +179,14 @@ yay -S nerd-fonts-jetbrains-mono
 
 - **Picom** — dual Kawase blur, window shadows, opacity fading, GLX backend
 - **Status bar** — real-time network, battery, volume, power profile, clock
+- **Battery monitor** — systemd timer checks every 60s, notifies at ≤20%, auto-hibernates at ≤10%
 - **Auto-start** — `.xinitrc` launches fcitx5, picom, dunst, wallpaper, and the status bar
 - **Rust mirror** — Tsinghua TUNA mirrors pre-configured in shell
 
 ### Neovim
 
 - `<Space>` leader with `which-key` hints
-- LSP ready: `clangd`, `pyright`, `rust-analyzer`, `lua_ls`
+- LSP ready: `clangd`, `pyright`, `rust-analyzer`, `lua_ls`, `nixd`
 - Auto-format on save, async linting
 - Telescope fuzzy finder, Flash fast jump
 - Tokyonight colorscheme
@@ -157,6 +197,12 @@ yay -S nerd-fonts-jetbrains-mono
 - **Fish** — vi key bindings, auto-start X11 on tty1
 - **Yazi** — show hidden files, <kbd>y</kbd> to cd on exit
 - **LazyGit** — auto-fetch disabled
+
+### Extras
+
+- **Nix flake** — reproducible dev environment (shellharden, ruff, nixfmt, nixd, stylua, …)
+- **VSCode** — format-on-save, neovim extension, custom suggestion keybindings
+- **C++ template** — CMake 4.2 + clangd + clang-tidy + clang-format boilerplate
 
 ---
 
