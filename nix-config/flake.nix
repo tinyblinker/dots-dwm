@@ -16,6 +16,7 @@
           shellharden
           deadnix
           ruff
+          tmux
           nixfmt
           j4-dmenu-desktop
           nixd
