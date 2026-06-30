@@ -1,3 +1,4 @@
-建议使用nix的homemanager来管理$HOME中变动最少的部分;
+建议使用nix的homemanager来管理$HOME中变动最少的部分(作为基础),然后手动管理变动最大的部分;
 建议多练习英语,熟练学习英语;
 建议使用nix的devshell管理开发环境;
+学会使用配置tmux
