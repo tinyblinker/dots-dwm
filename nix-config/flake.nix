@@ -17,6 +17,7 @@
           deadnix
           ruff
           nixfmt
+          j4-dmenu-desktop
           nixd
           black
           stylua
