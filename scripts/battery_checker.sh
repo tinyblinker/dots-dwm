@@ -20,10 +20,5 @@ if [ "$BAT" -le 10 ]; then
   fi
   touch /tmp/battery-suspending
 
-  # 禁用输入设备唤醒，防止键盘事件打断挂起
-  for dev in /sys/devices/*/*/power/wakeup; do
-      [ -w "$dev" ] && echo disabled > "$dev" 2>/dev/null
-  done
-
   systemctl suspend
 fi
