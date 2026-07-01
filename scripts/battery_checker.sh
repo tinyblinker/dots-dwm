@@ -9,15 +9,21 @@ if [ "$BAT" -le 20 ]; then
     dunstify -u critical "🔋 电量偏低" "当前电量：${BAT}%"
 fi
 
-# 适当时候删除/tmp/battery-hibernating
-if [[ -f /tmp/battery-hibernating && "$BAT" -gt 10 ]]; then
-  rm /tmp/battery-hibernating
+# 适当时候删除/tmp/battery-suspending
+if [[ -f /tmp/battery-suspending && "$BAT" -gt 10 ]]; then
+  rm /tmp/battery-suspending
 fi
 if [ "$BAT" -le 10 ]; then
-  # 防止重复触发休眠
-  if [[ -f /tmp/battery-hibernating ]]; then
+  # 防止重复触发挂起
+  if [[ -f /tmp/battery-suspending ]]; then
       exit 0
   fi
-  touch /tmp/battery-hibernating
-  systemctl hibernate
+  touch /tmp/battery-suspending
+
+  # 禁用输入设备唤醒，防止键盘事件打断挂起
+  for dev in /sys/devices/*/*/power/wakeup; do
+      [ -w "$dev" ] && echo disabled > "$dev" 2>/dev/null
+  done
+
+  systemctl suspend
 fi
