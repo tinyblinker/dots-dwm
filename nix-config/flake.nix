@@ -16,7 +16,6 @@
           shellharden
           deadnix
           ruff
-          virt-manager
           bat
           fd
           tmux
