@@ -16,6 +16,9 @@
           shellharden
           deadnix
           ruff
+          virt-manager
+          bat
+          fd
           tmux
           nixfmt
           j4-dmenu-desktop
