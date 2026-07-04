@@ -26,7 +26,6 @@
           stylua
           pyright
           shellcheck
-          qemu
           cava
         ];
       };
