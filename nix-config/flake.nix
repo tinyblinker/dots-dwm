@@ -15,6 +15,7 @@
         paths = with pkgs; [
           shellharden
           deadnix
+          qemu
           ruff
           bat
           fd
